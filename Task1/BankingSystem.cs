@@ -10,6 +10,9 @@ namespace Task1
     {
         public static bool IsOfferAvailable(int age, int numberOfServicesUsed, double deposit)
         {
+            if (age <= 0) throw new ArgumentException("Argument value is invalid");
+            if (numberOfServicesUsed < 0) throw new ArgumentException("Argument value is invalid");
+            if (deposit < 0) throw new ArgumentException("Argument value is invalid");
             if (age >= 60 || deposit > 1000000 || (numberOfServicesUsed >= 3 && deposit > 400000)) return true;
             return false;
         }
@@ -21,6 +24,9 @@ namespace Task1
 
         public static double CalculateTotalDeposit(double deposit, int duration, double interestRate)
         {
+            if (deposit < 0) throw new ArgumentException("Argument value is invalid");
+            if (duration < 0) throw new ArgumentException("Argument value is invalid");
+            if (interestRate < 0) throw new ArgumentException("Argument value is invalid");
             interestRate = interestRate / 100;
             for (int i = 0; i < duration; i++)
             {
@@ -36,6 +42,7 @@ namespace Task1
 
         public static int CalculateNumberOfBanknotes(int amountOfMoney)
         {
+            if (amountOfMoney < 100) throw new ArgumentException("Argument value is invalid");
             int thousand = 0;
             int fiveHundred = 0;
             int oneHundred = 0;

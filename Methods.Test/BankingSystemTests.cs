@@ -27,7 +27,6 @@ namespace Methods.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(0, 0)]
         [TestCase(700, 3)]
         [TestCase(3800, 7)]
         [TestCase(500, 1)]
@@ -36,6 +35,45 @@ namespace Methods.Test
         {
             int actual = BankingSystem.CalculateNumberOfBanknotes(amountOfMoney);
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(0, 1, 500)]
+        [TestCase(-30, 1, 500)]
+        public void IsOfferAvailableTest_WhenAgeZeroOrNegative_ShouldThrowArgumentException(int age, int numberOfServicesUsed, double deposit)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.IsOfferAvailable(age, numberOfServicesUsed, deposit));
+        }
+        [TestCase(0, -2, 500)]
+        public void IsOfferAvailableTest_WhenNumberOfServicesUsedNegative_ShouldThrowArgumentException(int age, int numberOfServicesUsed, double deposit)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.IsOfferAvailable(age, numberOfServicesUsed, deposit));
+        }
+        [TestCase(40, 3, -500)]
+        public void IsOfferAvailableTest_WhenDepositNegative_ShouldThrowArgumentException(int age, int numberOfServicesUsed, double deposit)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.IsOfferAvailable(age, numberOfServicesUsed, deposit));
+        }
+
+        [TestCase(-100, 3, 10)]
+        public void CalculateTotalDepositTest_WhenDepositNegative_ShouldThrowArgumentException(double deposit, int duration, double interestRate)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.CalculateTotalDeposit(deposit, duration, interestRate));
+        }
+        [TestCase(100, -3, 10)]
+        public void CalculateTotalDepositTest_WhenDurationNegative_ShouldThrowArgumentException(double deposit, int duration, double interestRate)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.CalculateTotalDeposit(deposit, duration, interestRate));
+        }
+        [TestCase(100, 3, -10)]
+        public void CalculateTotalDepositTest_WhenInterestRateNegative_ShouldThrowArgumentException(double deposit, int duration, double interestRate)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.CalculateTotalDeposit(deposit, duration, interestRate));
+        }
+
+        [TestCase(25)]
+        public void CalculateNumberOfBanknotesTest_WhenAmountOfMoneyLessThanHundred_ShouldThrowArgumentException(int amountOfMoney)
+        {
+            Assert.Throws<ArgumentException>(() => BankingSystem.CalculateNumberOfBanknotes(amountOfMoney));
         }
     }
 }
